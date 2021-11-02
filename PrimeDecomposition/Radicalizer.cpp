@@ -21,19 +21,21 @@ using namespace std;
 * @return the least prime factor of the specified number or
 * -1 if the specified number is less than 2
 */
-long lpf(long number)
+
+long lpf(long num)
 {
-	if (number < 2)
+	if (num < 2)
 		return -1;
-	if (number % 2 == 0)
+	if (num % 2 == 0)
 		return 2;
-	for (int i = 3; i * i <= number; i += 2)
+	for (int i = 3; i * i <= num; i += 2)
 	{
-		if (number % i == 0)
+		if (num % i == 0)
 			return i;
 	}
-	    return number;
+	    return num;
 }
+
 /**
 * Compute the radical of the specified number and generate
 * its prime factorization
@@ -47,34 +49,58 @@ long lpf(long number)
 * Note: the radical of 1 is 1
 * </pre>
 */
+
 void factorize(long num, long& rad, string& factStr)
 {
-	int least = lpf(num);
-	rad = least;
-	factStr = to_string(rad);
-	char f = rad;
-	int res = num;
-
+	int fact, residual;
+	fact = lpf(num);
+	factStr = to_string(fact);
+	rad = fact;
+	residual = num;
 	int count = 0;
-	while (res / f %2 == 0)
+	while(residual % fact == 0)
 	{
 		count ++;
-		res = res / f;
+		residual = residual / fact;
 	}
-	if (count > 1)
+	if(count > 1){
+		factStr = factStr + "^" + to_string(count);
+	}
+	while(fact <= sqrt(residual))
 	{
-		factStr = factStr + "^" + count;
+		fact = fact + 1;
+		if(residual % fact == 0)
+		{
+			rad = rad * fact;
+			factStr = factStr + "x" + to_string(count);
+			count = 0;
+			while(residual % fact == 0)
+			{
+				count ++;
+				residual = residual / fact;
+			}
+			if(count > 1){
+				factStr = factStr + "^" + to_string(count);
+			}
+		}
 	}
+	if(residual > 1)
+	{
+		rad = rad * residual;
+		factStr = factStr + "x" + to_string(residual);
+	}
+	cout << rad;
+	cout << factStr;
 }
 int main()
 {
-	long number;
+	long num;
 	cout << "Enter a positive integer -> ";
-	cin >> number;
-	if(lpf(number) > 1)
-	cout << "lpf(" << number << ") = " << lpf(number);
-	if(lpf(number) == -1)
-	cout << "lpf(" << number << ") = " << "nan";
+	cin >> num;
+	if(lpf(num) > 1)
+		cout << "lpf(" << num << ") = " << lpf(num);
+	if(lpf(num) == -1)
+		cout << "lpf(" << num << ") = " << "nan";
+	return 0;
 }
-
 
