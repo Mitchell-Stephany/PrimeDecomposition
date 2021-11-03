@@ -3,7 +3,7 @@
  * and determines whether or not it is a prime number.
  * @author Mitchell Stephany
  * <pre>
- * Date: October 29, 2021
+ * Date: November 2, 2021
  * File: Radicalizer.cpp
  * Course: csc1253 Section 3 <br>
  * Programming Project #: 3 <br>
@@ -24,13 +24,13 @@ using namespace std;
 
 long lpf(long num)
 {
-	if (num < 2)
+	if(num < 2)
 		return -1;
-	if (num % 2 == 0)
+	if(num % 2 == 0)
 		return 2;
-	for (int i = 3; i * i <= num; i += 2)
+	for(int i = 3; i * i <= num; i += 2)
 	{
-		if (num % i == 0)
+		if(num % i == 0)
 			return i;
 	}
 	    return num;
@@ -61,9 +61,9 @@ void factorize(long num, long& rad, string& factStr)
 	bool isPrime = true;
 	if(fact == -1)
 	{
+		cout << "?isPrime(" << num << ") = false" << endl;
 		cout << "Prime Decomposition: " << num << " = nan" << endl;
-		cout << "isPrime (" << num << ") = false" << endl;
-		cout << "radical (" << num << ") = nan" << endl;
+		cout << "radical(" << num << ") = nan" << endl;
 	}
 	while(residual % fact == 0)
 	{
@@ -106,7 +106,6 @@ void factorize(long num, long& rad, string& factStr)
 			isPrime = false;
 		}
 	}
-	cout << "Prime Decomposition: " << num << " = " << factStr << endl;
 	if(isPrime == 0)
 	{
 		cout << "?isPrime(" << num << ") = false" << endl;
@@ -115,7 +114,8 @@ void factorize(long num, long& rad, string& factStr)
 	{
 		cout << "?isPrime(" << num << ") = true" << endl;
 	}
-	cout << "radical (" << num << ") = " << rad << endl;
+	cout << "Prime Decomposition: " << num << " = " << factStr << endl;
+	cout << "radical(" << num << ") = " << rad << endl;
 }
 int main()
 {
