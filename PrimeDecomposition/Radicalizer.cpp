@@ -58,12 +58,20 @@ void factorize(long num, long& rad, string& factStr)
 	rad = fact;
 	residual = num;
 	int count = 0;
+	bool isPrime = true;
+	if(fact == -1)
+	{
+		cout << "Prime Decomposition: " << num << " = nan" << endl;
+		cout << "isPrime (" << num << ") = false" << endl;
+		cout << "radical (" << num << ") = nan" << endl;
+	}
 	while(residual % fact == 0)
 	{
 		count ++;
 		residual = residual / fact;
 	}
-	if(count > 1){
+	if(count > 1)
+	{
 		factStr = factStr + "^" + to_string(count);
 	}
 	while(fact <= sqrt(residual))
@@ -72,14 +80,15 @@ void factorize(long num, long& rad, string& factStr)
 		if(residual % fact == 0)
 		{
 			rad = rad * fact;
-			factStr = factStr + "x" + to_string(count);
+			factStr = factStr + " x " + to_string(fact);
 			count = 0;
 			while(residual % fact == 0)
 			{
 				count ++;
 				residual = residual / fact;
 			}
-			if(count > 1){
+			if(count > 1)
+			{
 				factStr = factStr + "^" + to_string(count);
 			}
 		}
@@ -87,20 +96,41 @@ void factorize(long num, long& rad, string& factStr)
 	if(residual > 1)
 	{
 		rad = rad * residual;
-		factStr = factStr + "x" + to_string(residual);
+		factStr = factStr + " x " + to_string(residual);
 	}
-	cout << rad;
-	cout << factStr;
+	int i;
+	for(i = 2; i < num; i++)
+	{
+		if(num % i == 0)
+		{
+			isPrime = false;
+		}
+	}
+	cout << "Prime Decomposition: " << num << " = " << factStr << endl;
+	if(isPrime == 0)
+	{
+		cout << "?isPrime(" << num << ") = false" << endl;
+	}
+	else
+	{
+		cout << "?isPrime(" << num << ") = true" << endl;
+	}
+	cout << "radical (" << num << ") = " << rad << endl;
 }
 int main()
 {
+	long rad;
+	string factStr;
 	long num;
 	cout << "Enter a positive integer -> ";
 	cin >> num;
 	if(lpf(num) > 1)
-		cout << "lpf(" << num << ") = " << lpf(num);
+	{
+		cout << "lpf(" << num << ") = " << lpf(num) << endl;
+	}
 	if(lpf(num) == -1)
-		cout << "lpf(" << num << ") = " << "nan";
+		cout << "lpf(" << num << ") = " << "nan" << endl;
+	factorize(num, rad, factStr);
 	return 0;
 }
 
