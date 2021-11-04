@@ -33,7 +33,7 @@ long lpf(long num)
 		if(num % i == 0)
 			return i;
 	}
-	    return num;
+	return num;
 }
 
 /**
@@ -129,7 +129,9 @@ int main()
 		cout << "lpf(" << num << ") = " << lpf(num) << endl;
 	}
 	if(lpf(num) == -1)
+	{
 		cout << "lpf(" << num << ") = " << "nan" << endl;
+	}
 	factorize(num, rad, factStr);
 	return 0;
 }
